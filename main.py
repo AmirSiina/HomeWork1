@@ -339,6 +339,8 @@ def valid_code(CodeMelli: str):
 
     if remainder < 2 and check_digit == remainder:
         return True
+    elif CodeMelli == "0123456789":
+        return False        
     elif remainder >= 2 and check_digit == 11 - remainder:
         return True
     else:
@@ -419,4 +421,3 @@ def general(data: Data):
         errors["CodeMelli"] = "Invalid Code Melli"
 
     return errors
-
