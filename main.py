@@ -376,48 +376,76 @@ class Data(BaseModel):
 
 @app.post("/general")
 def general(data: Data):
-    errors = {}
+    errors = []
 
-    if not Student_Number(data.student_number):
-        errors["student_number"] = "Invalid student number"
+    try:
+        Student_Number(data.student_number)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not UserName(data.name):
-        errors["name"] = "Invalid name"
+    try:
+        UserName(data.name)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not valid_date(data.birth_date):
-        errors["birth_date"] = "Invalid birth date"
+    try:
+        valid_date(data.birth_date)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Serial_number(data.serial_number):
-        errors["serial_number"] = "Invalid serial number"
+    try:
+        Serial_number(data.serial_number)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not valid_provinces(data.province):
-        errors["province"] = "Invalid province"
+    try:
+        valid_provinces(data.province)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Valid_city(data.city):
-        errors["city"] = "Invalid city"
+    try:
+        Valid_city(data.city)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not useraddress(data.address):
-        errors["address"] = "Invalid address"
+    try:
+        useraddress(data.address)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Postnumber(data.post_number):
-        errors["post_number"] = "Invalid post number"
+    try:
+        Postnumber(data.post_number)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Phone(data.phone):
-        errors["phone"] = "Invalid phone number"
+    try:
+        Phone(data.phone)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Telephone(data.telephone):
-        errors["telephone"] = "Invalid telephone number"
+    try:
+        Telephone(data.telephone)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Collage(data.college):
-        errors["college"] = "Invalid college name"
+    try:
+        Collage(data.college)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not Lesson(data.lesson):
-        errors["lesson"] = "Invalid lesson name"
+    try:
+        Lesson(data.lesson)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not marital(data.marital):
-        errors["marital"] = "Invalid marital status"
+    try:
+        marital(data.marital)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
-    if not valid_code(data.CodeMelli):
-        errors["CodeMelli"] = "Invalid Code Melli"
+    try:
+        valid_code(data.CodeMelli)
+    except HTTPException as e:
+        errors.append(str(e.detail))
 
     return errors
