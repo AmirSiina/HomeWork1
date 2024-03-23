@@ -1,6 +1,5 @@
 from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel
-import json
 
 app = FastAPI()
 
@@ -378,63 +377,74 @@ class Data(BaseModel):
 def general(data: Data):
      errors = []
 
-    student_number_error = Student_Number(data.student_number)
-    if student_number_error != data.student_number:
-        errors.append(student_number_error)
+    try:
+        Student_Number(data.student_number)
+    except HTTPException as e:
+        errors.append({"Student Number Error": str(e.detail)})
 
-    username_error = UserName(data.name)
-    if username_error != data.name:
-        errors.append(username_error)
+    try:
+        UserName(data.name)
+    except HTTPException as e:
+        errors.append({"Name Error": str(e.detail)})
 
-    date_error = valid_date(data.birth_date)
-    if date_error != data.birth_date:
-        errors.append(date_error)
+    try:
+        valid_date(data.birth_date)
+    except HTTPException as e:
+        errors.append({"Birth Date Error": str(e.detail)})
 
-    serial_number_error = Serial_number(data.serial_number)
-    if serial_number_error != data.serial_number:
-        errors.append(serial_number_error)
+    try:
+        Serial_number(data.serial_number)
+    except HTTPException as e:
+        errors.append({"Serial Number Error": str(e.detail)})
 
-    province_error = valid_provinces(data.province)
-    if province_error != data.province:
-        errors.append(province_error)
+    try:
+        valid_provinces(data.province)
+    except HTTPException as e:
+        errors.append({"Province Error": str(e.detail)})
 
-    city_error = Valid_city(data.city)
-    if city_error != data.city:
-        errors.append(city_error)
+    try:
+        Valid_city(data.city)
+    except HTTPException as e:
+        errors.append({"City Error": str(e.detail)})
 
-    address_error = useraddress(data.address)
-    if address_error != data.address:
-        errors.append(address_error)
+    try:
+        useraddress(data.address)
+    except HTTPException as e:
+        errors.append({"Address Error": str(e.detail)})
 
-    PostNumber_error = Postnumber(data.post_number)
-    if PostNumber_error != data.post_number:
-        errors.append(PostNumber_error)
+    try:
+        Postnumber(data.post_number)
+    except HTTPException as e:
+        errors.append({"Post Number Error": str(e.detail)})
 
-    phone_error = Phone(data.phone)
-    if phone_error != data.phone:
-        errors.append(phone_error)
+    try:
+        Phone(data.phone)
+    except HTTPException as e:
+        errors.append({"Phone Error": str(e.detail)})
 
-    telephone_error = Telephone(data.telephone)
-    if telephone_error != data.telephone:
-        errors.append(telephone_error)
+    try:
+        Telephone(data.telephone)
+    except HTTPException as e:
+        errors.append({"Telephone Error": str(e.detail)})
 
-    collage_error = Collage(data.college)
-    if collage_error != data.college:
-        errors.append(collage_error)
+    try:
+        Collage(data.college)
+    except HTTPException as e:
+        errors.append({"College Error": str(e.detail)})
 
-    lesson_error = Lesson(data.lesson)
-    if lesson_error != data.lesson:
-        errors.append(lesson_error)
+    try:
+        Lesson(data.lesson)
+    except HTTPException as e:
+        errors.append({"Lesson Error": str(e.detail)})
 
-    marital_error = marital(data.marital)
-    if marital_error != data.marital:
-        errors.append(marital_error)
+    try:
+        marital(data.marital)
+    except HTTPException as e:
+        errors.append({"Marital Status Error": str(e.detail)})
 
-    Codemelli_error = valid_code(data.CodeMelli)
-    if Codemelli_error != data.CodeMelli:
-        errors.append(Codemelli_error)
+    try:
+        valid_code(data.CodeMelli)
+    except HTTPException as e:
+        errors.append({"Code Melli Error": str(e.detail)})
 
-    if errors:
-        return {"errors": errors}
-    else:
-        return {"massage": "No errors found"}
+    return errors
